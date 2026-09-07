@@ -1,0 +1,171 @@
+body{
+    background-color: #FCE8EC;
+    margin: 0px;
+    padding: 0px;
+}
+#hero h2{
+    color: #5C2632;
+}
+
+#heading{
+    background-color: #4A304D;
+    padding: 3px;
+    width: 100%;
+    box-shadow: 10px 10px 10px grey;
+    animation: transparent 0.5s ease-in-out;
+}
+#heading h3{
+    margin-left: 10px;
+    color: #FFF5F5
+}
+
+#hero{
+    text-align: center;
+    position: relative;
+    top: 180px;
+    animation: pop 0.7s ease-in-out;
+    
+}
+
+#hero h2{
+    font-size: 50px;
+}
+#hero input {
+    width: 300px;
+    height: 22px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.28);
+    border: none;
+    outline: none;
+    color: #4A304D;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, serif;
+    animation: pop 1s ease-in-out;
+
+}
+
+#hero input::placeholder {
+    color: #8A96A8;
+}
+
+#hero input:focus {
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(201, 95, 114, 0.5);
+
+    box-shadow:
+        0 4px 15px rgba(74, 48, 77, 0.08),
+        0 0 10px 3px rgba(201, 95, 114, 0.12);
+}
+
+#hero button{
+   margin-top: 20px;
+}
+button{
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 5px 5px 10px grey;
+    transition: transform 0.2 ease-in-out;
+    animation: pop 1s ease-in-out;
+}
+#hero button:hover{
+    transform: scale(1.1);
+}
+#hero p{
+    opacity: 800%;
+    color: grey;
+    font-size: 80%;
+    margin-top: 30px;
+    animation: pop 1.2s ease-in-out;
+}
+#result{
+    margin-top: 150px;
+    text-align: center;
+    animation: pop 0.7s ease-in-out;
+    position: relative;
+}
+.party-gif{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: auto;
+    pointer-events: none;
+    animation: pop 1s ease-in-out;
+    border-radius: 10px;
+}
+#gif-left{
+    left: 10%;
+}
+#gif-right{
+    right: 10%;
+}
+#gif-top{
+    top: -10%;
+    left: 710px;
+    width: 100px;
+
+}
+@media (max-width: 700px){
+    .party-gif{
+        display: none;
+    }
+}
+#result #photo{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #4A304D;
+    box-shadow: 5px 5px 10px grey;
+    margin-top: 10px;
+}
+#result #name{
+    font-size: 28px;
+    color: #5C2632;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, serif;
+}
+#result #birthday{
+    color: #4A304D;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, serif;
+}
+#result #message{
+    text-align: center;
+    width: 300px;
+    min-height: 150px;
+    margin: 20px auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 2px solid #4A304D;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    color: #5C2632;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, serif;
+}
+#result button{
+    margin-top: 10px;
+}
+#result button:hover{
+    transform: scale(1.1);
+}
+
+@keyframes pop{
+    0%{
+        opacity: 0;
+        transform: translateY(20px);
+        transition: ease-in-out;
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(1px);    
+        transition: ease-in-out;  
+    }
+}
+@keyframes transparent{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}

@@ -1,0 +1,102 @@
+const input = document.getElementById("nameinput");
+const button = document.getElementById("enterbutton");
+const backButton = document.getElementById("backbutton");
+
+const heroEl = document.getElementById("hero");
+const resultEl = document.getElementById("result");
+
+const photoEl = document.getElementById("photo");
+const nameEl = document.getElementById("name");
+const birthdayEl = document.getElementById("birthday");
+const messageEl = document.getElementById("message");
+
+button.addEventListener("click", searchbirthday);
+backButton.addEventListener("click", resetSession);
+
+// Turns a Date object into something readable, e.g. "September 7, 2026"
+function formatToday(date) {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return date.toLocaleDateString("en-US", options);
+}
+
+function showResultView() {
+    heroEl.style.display = "none";
+    resultEl.style.display = "block";
+}
+
+function resetSession() {
+    input.value = "";
+    photoEl.src = "";
+    photoEl.style.display = "none";
+    nameEl.textContent = "";
+    birthdayEl.textContent = "";
+    messageEl.textContent = "";
+
+    resultEl.style.display = "none";
+    heroEl.style.display = "block";
+    input.focus();
+}
+
+async function searchbirthday() {
+    const name = input.value.trim();
+
+    if (name === "") {
+        photoEl.style.display = "none";
+        nameEl.textContent = "Please type a name first.";
+        birthdayEl.textContent = "";
+        messageEl.textContent = "";
+        showResultView();
+        return;
+    }
+
+    try {
+        // 1. Load the JSON file
+        const response = await fetch("birthdays.json");
+        const people = await response.json();
+
+        // 2. Find the matching person (case-insensitive)
+        const person = people.find(
+            (p) => p.fullname.toLowerCase() === name.toLowerCase()
+        );
+
+        // 3. Get today's date, both as MM-DD (for comparison) and readable format (for display)
+        const today = new Date();
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const day = String(today.getDate()).padStart(2, "0");
+        const todayMMDD = `${month}-${day}`;
+        const todayReadable = formatToday(today);
+
+        // 4. If no match found
+        if (!person) {
+            photoEl.style.display = "none";
+            nameEl.textContent = "Name not found.";
+            birthdayEl.textContent = `Today is ${todayReadable}. Please check the spelling and format (Ex: Jayson Simballa).`;
+            messageEl.textContent = "";
+            showResultView();
+            return;
+        }
+
+        // 5. Display name and photo
+        nameEl.textContent = `${person.fullname}`;
+        photoEl.src = person.image;
+        photoEl.alt = person.fullname;
+        photoEl.style.display = "inline-block";
+
+        // 6. Check if today is their birthday, always showing today's date
+        if (person.birthdate === todayMMDD) {
+            birthdayEl.textContent = `Today is ${todayReadable} — Happy Birthday!`;
+            messageEl.textContent = person.message;
+        } else {
+            birthdayEl.textContent = `Today is ${todayReadable}. Sorry, that's not your birthday.`;
+            messageEl.textContent = "";
+        }
+
+        showResultView();
+    } catch (error) {
+        console.error("Error loading birthdays.json:", error);
+        nameEl.textContent = "Something went wrong loading the data.";
+        birthdayEl.textContent = "";
+        messageEl.textContent = "";
+        showResultView();
+    }
+}
