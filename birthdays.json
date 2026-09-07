@@ -1,18 +1,21 @@
 [
     {
         "fullname": "Jayson Simballa",
+        "nickname": "Ison",
         "birthdate": "09-07",
         "message": "Happy Birthday, Ison! I hope you enjoy your day and that this small project of mine brings you a little joy. More birthdays to come!!",
         "image": "images/jayson.jpg"
     },
     {
         "fullname": "Brovig Castillo",
+        "nickname": "Ivig",
         "birthdate": "09-26",
         "message": "Happy Birthday, Ivig! I hope you're enjoying your day!",
         "image": "images/brovig.jpg"
     },
     {
         "fullname": "Trisha Gain Buzon",
+        "nickname": "Chai",
         "birthdate": "01-30",
         "message": "Happy Birthday, Trish! I hope you are well and enjoying your day to the fullest!",
         "image": "images/trisha.jpg"

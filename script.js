@@ -6,6 +6,9 @@ const heroEl = document.getElementById("hero");
 const resultEl = document.getElementById("result");
 
 const photoEl = document.getElementById("photo");
+const gifLeftEl = document.getElementById("gif-left");
+const gifRightEl = document.getElementById("gif-right");
+const gifTopEl = document.getElementById("gif-top")
 const nameEl = document.getElementById("name");
 const birthdayEl = document.getElementById("birthday");
 const messageEl = document.getElementById("message");
@@ -24,14 +27,32 @@ function showResultView() {
     resultEl.style.display = "block";
 }
 
+// Hides all the "celebration" elements (photo, gifs, message box)
+function hideCelebrationElements() {
+    photoEl.style.display = "none";
+    gifLeftEl.style.display = "none";
+    gifRightEl.style.display = "none";
+    gifTopEl.style.display = "none";
+    messageEl.style.display = "none";
+}
+
+// Shows all the "celebration" elements
+function showCelebrationElements() {
+    photoEl.style.display = "inline-block";
+    gifLeftEl.style.display = "block";
+    gifRightEl.style.display = "block";
+    gifTopEl.style.display = "block";
+    messageEl.style.display = "block";
+}
+
 function resetSession() {
     input.value = "";
     photoEl.src = "";
-    photoEl.style.display = "none";
     nameEl.textContent = "";
     birthdayEl.textContent = "";
     messageEl.textContent = "";
 
+    hideCelebrationElements();
     resultEl.style.display = "none";
     heroEl.style.display = "block";
     input.focus();
@@ -41,10 +62,9 @@ async function searchbirthday() {
     const name = input.value.trim();
 
     if (name === "") {
-        photoEl.style.display = "none";
+        hideCelebrationElements();
         nameEl.textContent = "Please type a name first.";
         birthdayEl.textContent = "";
-        messageEl.textContent = "";
         showResultView();
         return;
     }
@@ -68,35 +88,36 @@ async function searchbirthday() {
 
         // 4. If no match found
         if (!person) {
-            photoEl.style.display = "none";
+            hideCelebrationElements();
             nameEl.textContent = "Name not found.";
-            birthdayEl.textContent = `Today is ${todayReadable}. Please check the spelling and format (Ex: Jayson Simballa).`;
-            messageEl.textContent = "";
+            birthdayEl.textContent = `Please check the spelling and format (Ex: Jayson Simballa).`;
             showResultView();
             return;
         }
 
-        // 5. Display name and photo
-        nameEl.textContent = `${person.fullname}`;
-        photoEl.src = person.image;
-        photoEl.alt = person.fullname;
-        photoEl.style.display = "inline-block";
-
-        // 6. Check if today is their birthday, always showing today's date
+        // 5. Check if today is their birthday
         if (person.birthdate === todayMMDD) {
+            // It IS their birthday: show name, photo, gifs, and the message
+            nameEl.textContent = `${person.fullname}`;
             birthdayEl.textContent = `Today is ${todayReadable} — Happy Birthday!`;
             messageEl.textContent = person.message;
+            photoEl.src = person.image;
+            photoEl.alt = person.fullname;
+
+            showCelebrationElements();
         } else {
-            birthdayEl.textContent = `Today is ${todayReadable}. Sorry, that's not your birthday.`;
-            messageEl.textContent = "";
+            // NOT their birthday: minimal view, just a greeting
+            hideCelebrationElements();
+            nameEl.textContent = `Hello ${person.nickname}, today is not your birthday.`;
+            birthdayEl.textContent = "";
         }
 
         showResultView();
     } catch (error) {
         console.error("Error loading birthdays.json:", error);
+        hideCelebrationElements();
         nameEl.textContent = "Something went wrong loading the data.";
         birthdayEl.textContent = "";
-        messageEl.textContent = "";
         showResultView();
     }
 }
