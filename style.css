@@ -148,6 +148,11 @@ button{
 #result button:hover{
     transform: scale(1.1);
 }
+#song-player{
+    border-radius: 30px;
+    margin-top: 10px;
+    box-shadow: 5px 5px 10px grey;
+}
 
 @keyframes pop{
     0%{

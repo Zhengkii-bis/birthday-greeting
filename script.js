@@ -12,6 +12,7 @@ const gifTopEl = document.getElementById("gif-top")
 const nameEl = document.getElementById("name");
 const birthdayEl = document.getElementById("birthday");
 const messageEl = document.getElementById("message");
+const songEl = document.getElementById("song-player");
 
 button.addEventListener("click", searchbirthday);
 backButton.addEventListener("click", resetSession);
@@ -22,18 +23,27 @@ function formatToday(date) {
     return date.toLocaleDateString("en-US", options);
 }
 
+// Returns the audio path if valid, or null if missing/"n/a"
+function getAudioClip(audioPath) {
+    if (!audioPath || audioPath.toLowerCase() === "n/a") return null;
+    return audioPath;
+}
+
 function showResultView() {
     heroEl.style.display = "none";
     resultEl.style.display = "block";
 }
 
-// Hides all the "celebration" elements (photo, gifs, message box)
+// Hides all the "celebration" elements (photo, gifs, message box, audio player)
 function hideCelebrationElements() {
     photoEl.style.display = "none";
     gifLeftEl.style.display = "none";
     gifRightEl.style.display = "none";
     gifTopEl.style.display = "none";
     messageEl.style.display = "none";
+    songEl.pause();
+    songEl.style.display = "none";
+    songEl.src = ""; // fully stops and unloads the clip
 }
 
 // Shows all the "celebration" elements
@@ -97,12 +107,25 @@ async function searchbirthday() {
 
         // 5. Check if today is their birthday
         if (person.birthdate === todayMMDD) {
-            // It IS their birthday: show name, photo, gifs, and the message
+            // It IS their birthday: show name, photo, gifs, message, and song
             nameEl.textContent = `${person.fullname}`;
             birthdayEl.textContent = `Today is ${todayReadable} — Happy Birthday!`;
             messageEl.textContent = person.message;
             photoEl.src = person.image;
             photoEl.alt = person.fullname;
+
+            const audioClip = getAudioClip(person.audio);
+            if (audioClip) {
+                songEl.src = audioClip;
+                songEl.style.display = "none";
+                // Attempt autoplay. This is allowed here because it's triggered
+                // by the Enter button click (a real user interaction).
+                songEl.play().catch((error) => {
+                    console.warn("Autoplay was blocked by the browser:", error);
+                });
+            } else {
+                songEl.style.display = "none";
+            }
 
             showCelebrationElements();
         } else {
