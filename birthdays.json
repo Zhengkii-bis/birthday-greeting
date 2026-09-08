@@ -13,7 +13,7 @@
         "birthdate": "09-26",
         "message": "Happy Birthday, Ivig! I hope you're enjoying your day!",
         "image": "images/brovig.jpg",
-        "spotify": "audios/happybirthday2.mp3"
+        "audio": "audios/happybirthday2.mp3"
     },
     {
         "fullname": "Trisha Gain Buzon",
@@ -21,28 +21,28 @@
         "birthdate": "01-30",
         "message": "Happy Birthday, Trish! I hope you are well and enjoying your day to the fullest!",
         "image": "images/trisha.jpg",
-        "spotify": "audios/happybirthday1.mp3"
+        "audio": "audios/happybirthday1.mp3"
     },
     {
         "fullname": "Ferdinand Liscano",
         "nickname": "Deng",
         "birthdate": "09-11",
-        "message": "Happy Birthday, Deng. Mabuhay ka ng matagal, anak ng kagawad",
+        "message": "Happy Birthday, Deng. Mabuhay ka ng matagal, anak ng kagawad. - From Rene Baterbonia",
         "image": "images/ferdi.jpg",
-        "spotify": "audios/rene.mp3"
+        "audio": "audios/rene.mp3"
     }, 
     {
         "fullname": "Saicy Ellize Villano",
         "nickname": "Sai",
-        "birthdate": "09-21",
-        "message": "Happy Birthday, bithc, More alcohol to ccome!",
+        "birthdate": "09-12",
+        "message": "Happy Birthday, bithc, Rene ka saken, more alcohols to come please!",
         "image": "images/saicy.jpg",
         "audio": "audios/rene.mp3"
     },
     {
         "fullname": "Maria Cristel Domingo",
         "nickname": "Tel",
-        "birthdate": "10-21",
+        "birthdate": "09-08",
         "message": "Happy Birthday, Tel. Rene ka sakin",
         "image": "images/cristel.jpg",
         "audio": "audios/rene.mp3"

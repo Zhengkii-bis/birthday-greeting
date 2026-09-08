@@ -13,6 +13,7 @@ const nameEl = document.getElementById("name");
 const birthdayEl = document.getElementById("birthday");
 const messageEl = document.getElementById("message");
 const songEl = document.getElementById("song-player");
+const text_header = document.getElementById("heading-text")
 
 button.addEventListener("click", searchbirthday);
 backButton.addEventListener("click", resetSession);
@@ -55,12 +56,37 @@ function showCelebrationElements() {
     messageEl.style.display = "block";
 }
 
+function launchConfetti() {
+    const duration = 2000; // 2 seconds of bursts
+    const end = Date.now() + duration;
+ 
+    (function frame() {
+        confetti({
+            particleCount: 4,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0, y: 0.6 },
+        });
+        confetti({
+            particleCount: 4,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1, y: 0.6 },
+        });
+ 
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
+}
+
 function resetSession() {
     input.value = "";
     photoEl.src = "";
     nameEl.textContent = "";
     birthdayEl.textContent = "";
     messageEl.textContent = "";
+    text_header.textContent = "Is it your birhtday?";
 
     hideCelebrationElements();
     resultEl.style.display = "none";
@@ -113,6 +139,7 @@ async function searchbirthday() {
             messageEl.textContent = person.message;
             photoEl.src = person.image;
             photoEl.alt = person.fullname;
+            text_header.textContent = "HAPPY BIRTHDAY!"
 
             const audioClip = getAudioClip(person.audio);
             if (audioClip) {
@@ -126,7 +153,7 @@ async function searchbirthday() {
             } else {
                 songEl.style.display = "none";
             }
-
+            launchConfetti();
             showCelebrationElements();
         } else {
             // NOT their birthday: minimal view, just a greeting
